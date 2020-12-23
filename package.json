@@ -1,0 +1,25 @@
+{
+  "type": "commonjs",
+  "name": "nugabob_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "npx babel src --out-dir dist",
+    "dev": "npx nodemon",
+    "start": "node dist/server.js"
+  },
+  "keywords": [],
+  "author": "nugabob",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
