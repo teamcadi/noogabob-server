@@ -1,2 +1,2 @@
 
-console.log("test seungwon")
+console.log("test2 seungwon")
