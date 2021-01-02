@@ -1,6 +1,7 @@
 import express from "express";
 import config from "./configs";
 import loader from "./loaders";
+import { logger } from "./utils/logger";
 
 (async () => {
   const app = express();
@@ -12,9 +13,10 @@ import loader from "./loaders";
   // port binding
   app.listen(port, (err) => {
     if (err) {
-      //   console.error(err);
-      console.error(err.message);
+      logger.error(err.toString());
       process.exit(1);
-    } else console.log("서버 실행중");
+    } else {
+      logger.info(`Sever listening on port ${port}`);
+    }
   });
 })();

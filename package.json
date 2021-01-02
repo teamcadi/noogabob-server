@@ -20,7 +20,18 @@
     "nodemon": "^2.0.6"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "helmet": "^4.3.1",
+    "hpp": "^0.2.3",
+    "http-status-codes": "^2.1.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "mysql2": "^2.2.5",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   }
 }
