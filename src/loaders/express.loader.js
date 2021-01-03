@@ -16,6 +16,7 @@ function expressLoader(app) {
 
   // routes
   app.use(config.prefix, routes());
+
   app.use("/favicon.ico", (req, res) => res.status(204));
   app.use((req, res, next) => {
     const error = new Error("Not Found");

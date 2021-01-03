@@ -1,5 +1,9 @@
+# npm install
 /node_modules
+
+# kakao
 .env
+
 /dist
 /log
 /upload

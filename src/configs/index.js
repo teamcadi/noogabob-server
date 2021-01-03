@@ -10,7 +10,9 @@ const config = {
   dbSchema: process.env.DB_SCHEMA,
   jwt: { ...jwtConfig },
   port: process.env.PORT,
-  prefix: process.env.PREFIX,
+  prefix: process.env.ROUTE_PREFIX,
+  nodeEnv: process.env.NODE_ENV,
+  hostname: process.env.HOSTNAME,
 };
 
 export default config;
