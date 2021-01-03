@@ -1,10 +1,8 @@
-import express from "express";
 import config from "./configs";
 import loader from "./loaders";
 import { logger } from "./utils/logger";
 
-(async () => {
-  const app = express();
+const server = async (app) => {
   const port = config.port;
 
   // loader
@@ -19,4 +17,6 @@ import { logger } from "./utils/logger";
       logger.info(`Sever listening on port ${port}`);
     }
   });
-})();
+};
+
+export default server;

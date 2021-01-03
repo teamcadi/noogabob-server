@@ -23,7 +23,7 @@ const databaseLoader = async () => {
           id int(11) NOT NULL AUTO_INCREMENT,
           fId varchar(255) NOT NULL,
           name varchar(255) NOT NULL,
-          member varchar(255) NOT NULL,
+          role varchar(255) NOT NULL,
           createdAt timestamp NOT NULL DEFAULT current_timestamp(),
           updatedAt timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
           PRIMARY KEY (id),
