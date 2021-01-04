@@ -15,7 +15,7 @@ src
     └ service                       → controller와 model 사이의 로직을 처리
  └ configs                          → 서버 환경 설정
  └ loaders                          → 시작 프로세스를 모듈로 분할 구현
- └ utils   	                        → 애플리케이션 유틸리티
+ └ utils                            → 애플리케이션 유틸리티
  └ .env                             → 애플리케이션 환경 변수 (ignore)
  └ index.js                         → 메인 애플리케이션 진입점 (entry point)
  └ server.js                        → 서버 애플케이션 구현
