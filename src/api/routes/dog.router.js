@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-function dogsRouter(app) {
+function dogRouter(app) {
   app.use("/dogs", router);
 
   router.post("/", (req, res) => {});
@@ -10,4 +10,4 @@ function dogsRouter(app) {
   router.put("/:dogId/:id", (req, res) => {});
 }
 
-export default dogsRouter;
+export default dogRouter;
