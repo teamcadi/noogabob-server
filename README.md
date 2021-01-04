@@ -69,3 +69,25 @@ DOG_IMAGE_FIELDNAME=image
 ```
 npm run dev
 ```
+
+## 배포
+
+모든 설치가 완료되면 빌드 스크립트로 트랜스파일 합니다.
+
+```bash
+npm run build
+```
+
+pm2 를 서버에 글로벌로 설치합니다.
+
+```bash
+npm install -g pm2
+```
+
+> npm 으로 실행
+>
+> > `npm run start`
+>
+> pm2 로 실행 (cluster mode)
+>
+> > `pm2 start ecosystem.config.js`
