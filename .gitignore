@@ -1,3 +1,12 @@
-node_modules
+# npm install
+/node_modules
+
+# kakao
 .env
-dist
+
+/dist
+/log
+/upload
+/logs
+
+/.vscode

@@ -1,5 +1,5 @@
 {
   "watch": ["src"],
-  "exec": "npx babel-node src/server.js",
+  "exec": "npx babel-node src/index.js",
   "ext": "js"
 }
