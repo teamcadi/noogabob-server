@@ -3,6 +3,7 @@ import morgan from "morgan";
 import routes from "../api/routes";
 import config from "../configs";
 import { logger } from "../utils/logger";
+import { getApi } from "../utils/response";
 
 /**
  * @description express framework 셋팅
@@ -28,8 +29,8 @@ function expressLoader(app) {
   // todo: 데이터베이스 에러 핸들링
   app.use((err, req, res, next) => {
     logger.error(err);
-    if (err.errno == 1062) rs.status(409).json({ success: false, message: "데이터 중복" });
-    else res.status(err.status || 500).json({ success: false, message: err.message });
+    if (err.errno == 1062) rs.status(409).json(getApi(false, "데이터 중복"));
+    else res.status(err.status || 500).json(getApi(false, err.message));
   });
 }
 
