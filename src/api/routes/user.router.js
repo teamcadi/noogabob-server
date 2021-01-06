@@ -7,7 +7,7 @@ function userRouter(app) {
 
   // todo: auth, validator
   router.get("/:userId", UserController.getUser);
-  router.put("/:userId", (req, res) => {});
+  router.put("/:userId", UserController.putUser);
   router.delete("/:userId", (req, res) => {});
 }
 
