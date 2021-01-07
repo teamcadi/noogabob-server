@@ -8,7 +8,13 @@ const User = {
     const [user] = await executeQuery(query, values);
     return user;
   },
-  // ...
+  
+  updateUser: async(id, name, role) => {
+    const query = "UPDATE user SET name = ?, role = ? WHERE id = ?";
+    const values = [name, role, id];
+    const user = await executeQuery(query, values);
+    return user;
+  }
 };
 
 export default User;

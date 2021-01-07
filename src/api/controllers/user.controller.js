@@ -13,6 +13,16 @@ const UserController = {
       next(e);
     }
   },
+  putUser: async(req, res, next) => {
+    try{
+      const {userId} = req.params;
+      const {name, role} = req.body;
+      const user = await UserService.putUser(userId, name, role);
+      res.status(201).json(getApi(true));
+    }catch(error) {
+      next(error);
+    }
+  }
 };
 
 export default UserController;
