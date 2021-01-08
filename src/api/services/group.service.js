@@ -8,6 +8,5 @@ const GroupService = {
       return key;
     },
 };
-GroupService.getKey();
 
 export default GroupService;
