@@ -7,7 +7,11 @@ const UserController = {
     try {
       const { userId } = req.params;
       const user = await UserService.getUser(userId);
-      res.status(200).json(getApi(true, user));
+      if (user === undefined) {
+        res.status(200).json(getApi(false, user));
+      } else {
+        res.status(200).json(getApi(true, user));
+      }
     } catch (error) {
       // error handling
       next(error);
