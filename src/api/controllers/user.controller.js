@@ -12,6 +12,7 @@ const UserController = {
       // error handling
       next(error);
     }
+    //user가 없으면 success:false 나오게 만들기
   },
   putUser: async (req, res, next) => {
     try {
@@ -27,7 +28,7 @@ const UserController = {
     try {
       const { userId } = req.params;
       await UserService.deleteUser(userId);
-      res.status(204).json(getApi(true));
+      res.status(200).json(getApi(true));
     } catch (error) {
       next(error);
     }
