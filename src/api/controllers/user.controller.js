@@ -10,19 +10,28 @@ const UserController = {
       res.status(200).json(getApi(true, user));
     } catch (error) {
       // error handling
-      next(e);
-    }
-  },
-  putUser: async(req, res, next) => {
-    try{
-      const {userId} = req.params;
-      const {name, role} = req.body;
-      const user = await UserService.putUser(userId, name, role);
-      res.status(201).json(getApi(true));
-    }catch(error) {
       next(error);
     }
-  }
+  },
+  putUser: async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { name, role } = req.body;
+      const user = await UserService.putUser(userId, name, role);
+      res.status(201).json(getApi(true));
+    } catch (error) {
+      next(error);
+    }
+  },
+  deleteUser: async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      await UserService.deleteUser(userId);
+      res.status(204).json(getApi(true));
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export default UserController;
