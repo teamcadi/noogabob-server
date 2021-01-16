@@ -15,4 +15,4 @@ for link in bsObject.find_all('a'):
     #lstrip - 왼쪽에 있는 공백 제거
     #rstrip - 오른쪽에 있는 공백 제거 
     #strip - 왼쪽 오른쪽에 있는 공백 제거 
-    #공백 전체 제거 text = "    what are you doing? " / text1 = text.replace(" ","") / print(text1)
+    #공백 전체 제거 text = "    what are you doing? " / text1 = text.replace(" ","")
