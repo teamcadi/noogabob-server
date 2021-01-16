@@ -21,6 +21,16 @@ const GroupController = {
       next(e);
     }
   },
+
+  getStatics: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      const { date } = req.query;
+      await GroupService.getStatics(groupId, date);
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 export default GroupController;

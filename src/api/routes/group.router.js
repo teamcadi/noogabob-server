@@ -7,7 +7,7 @@ function groupRouter(app) {
 
   router.post("/", GroupController.getKey);
   router.get("/:groupId/members", GroupController.getMembers);
-  router.get("/:groupId/statics", (req, res) => {});
+  router.get("/:groupId/statics", GroupController.getStatics);
   router.post("/:groupId/album", (req, res) => {});
   router.get("/:groupId/timeline", (req, res) => {});
 }
