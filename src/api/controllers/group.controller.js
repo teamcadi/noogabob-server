@@ -26,7 +26,8 @@ const GroupController = {
     try {
       const { groupId } = req.params;
       const { date } = req.query;
-      await GroupService.getStatics(groupId, date);
+      const data = await GroupService.getStatics(groupId, date);
+      res.status(200).json(getApi(true, data));
     } catch (e) {
       next(e);
     }

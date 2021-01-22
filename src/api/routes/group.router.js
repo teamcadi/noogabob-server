@@ -1,3 +1,4 @@
+import { validation } from "../middlewares/validators/static/static.validaation";
 import { Router } from "express";
 import GroupController from "../controllers/group.controller";
 const router = Router();
@@ -7,7 +8,7 @@ function groupRouter(app) {
 
   router.post("/", GroupController.getKey);
   router.get("/:groupId/members", GroupController.getMembers);
-  router.get("/:groupId/statics", GroupController.getStatics);
+  router.get("/:groupId/statics", validation, GroupController.getStatics);
   router.post("/:groupId/album", (req, res) => {});
   router.get("/:groupId/timeline", (req, res) => {});
 }
