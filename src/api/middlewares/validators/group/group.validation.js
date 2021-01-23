@@ -1,4 +1,3 @@
-import { getApi } from "../../../../utils/response";
 import { groupStaticSchema } from "./group.schema";
 
 module.exports = {
@@ -8,7 +7,9 @@ module.exports = {
   staticValidation: async (req, res, next) => {
     const value = await groupStaticSchema.validate(req.query);
     if (value.error) {
-      res.status(200).json(getApi(false, value.error.details[0].message));
+      const error = new Error(value.error.details[0].message);
+      error.status = 406;
+      next(error);
     } else {
       next();
     }

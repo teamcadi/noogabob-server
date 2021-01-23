@@ -1,4 +1,3 @@
-import { getApi } from "../../../../utils/response";
 import { dogSchema, bobSchema } from "./static.schema";
 
 module.exports = {
@@ -8,7 +7,9 @@ module.exports = {
   DogValidation: async (req, res, next) => {
     const value = await dogSchema.validate(req.body);
     if (value.error) {
-      res.status(200).json(getApi(false, value.error.details[0].message));
+      const error = new Error(value.error.details[0].message);
+      error.status = 406;
+      next(error);
     } else {
       next();
     }
@@ -20,7 +21,9 @@ module.exports = {
   EatValidation: async (req, res, next) => {
     const value = await bobSchema.validate(req.body);
     if (value.error) {
-      res.status(200).json(getApi(false, value.error.details[0].message));
+      const error = new Error(value.error.details[0].message);
+      error.status = 406;
+      next(error);
     } else {
       next();
     }
