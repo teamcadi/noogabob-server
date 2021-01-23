@@ -19,13 +19,23 @@ const GroupService = {
     if (date === "week") {
       // const family = await Family.findByUser(groupId);
       const dogId = await Family.findByDogId(groupId);
-      return await Family.findByWeekRank(dogId.id);
-
-      return;
+      const mealRank = await Family.findByWeekMealRank(dogId.id);
+      const snackRank = await Family.findByWeekSnackRank(dogId.id);
+      return { mealRank, snackRank };
     } else if (date === "month") {
       const dogId = await Family.findByDogId(groupId);
-      return await Family.findByMonthRank(dogId.id);
+      const mealRank = await Family.findByMonthMealRank(dogId.id);
+      const snackRank = await Family.findByMonthSnackRank(dogId.id);
+      return { mealRank, snackRank };
     }
+  },
+
+  postAlbum: async (groupId, image) => {
+    await Family.postAlbum(groupId, image);
+  },
+
+  getAlbum: async (groupId) => {
+    return await Family.getAlbum(groupId);
   },
 };
 

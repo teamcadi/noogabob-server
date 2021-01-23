@@ -32,6 +32,27 @@ const GroupController = {
       next(e);
     }
   },
+
+  postAlbum: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      const image = `/upload/${req.file.filename}`;
+      await GroupService.postAlbum(groupId, image);
+      res.status(201).json(getApi(true));
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  getAlbum: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      const ablum = await GroupService.getAlbum(groupId);
+      res.status(200).json(getApi(true, ablum));
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 export default GroupController;
