@@ -1,6 +1,8 @@
 import { executeQuery } from "./pool";
 
 const User = {
+  postUser: async (req, res, next) => {},
+
   findById: async (id) => {
     const query = "SELECT * FROM user WHERE id = ?;";
     const values = [id];

@@ -1,6 +1,8 @@
 import User from "../models/user.model";
 
 const UserService = {
+  postUser: async (req, res, next) => {},
+
   getUser: async (id) => {
     return await User.findById(id);
   },
