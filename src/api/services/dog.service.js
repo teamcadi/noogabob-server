@@ -1,4 +1,4 @@
-import User from "../models/dog.model";
+import Dog from "../models/dog.model";
 
 const DogService = {
   postDog: async (dogId, name, age, kind, meal1, meal2, meal3) => {
