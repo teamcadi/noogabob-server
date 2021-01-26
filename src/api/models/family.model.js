@@ -1,6 +1,13 @@
 import { executeQuery } from "./pool";
 
 const Family = {
+  findByKey: async (fId) => {
+    const query = "SELECT fId FROM noogabab.family where fId = ?";
+    const values = [fId];
+    const [key] = await executeQuery(query, values);
+    return key.fId;
+  },
+
   postKey: async (fId) => {
     const query = "INSERT INTO family (fId) values (?)";
     const values = [fId];
