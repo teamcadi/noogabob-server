@@ -9,9 +9,9 @@ const options = {
     else {
       const arr = file.originalname.split(".");
       file.type = arr[arr.length - 1].toLowerCase();
-      if (file.type === "xlsx") cb(null, true);
+      if (file.type === "jpg" || file.type === "png") cb(null, true);
       else {
-        const error = new Error("Not Excel");
+        const error = new Error("Change File Type");
         error.status = 400;
         cb(error, false);
       }
@@ -29,4 +29,4 @@ const options = {
   //   limits: { fileSize: 20 * 1024 * 1024 },
 };
 
-export const dogImageUpload = multer(options).single(config.excelFieldName);
+export const dogImageUpload = multer(options).single(config.FieldName);

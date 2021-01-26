@@ -13,6 +13,7 @@ const config = {
   prefix: process.env.ROUTE_PREFIX,
   nodeEnv: process.env.NODE_ENV,
   hostname: process.env.HOSTNAME,
+  FieldName: "image",
 };
 
 export default config;
