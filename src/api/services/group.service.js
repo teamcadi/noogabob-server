@@ -37,6 +37,8 @@ const GroupService = {
   getAlbum: async (groupId) => {
     return await Family.getAlbum(groupId);
   },
+
+  getTimeline: async (key, groupId) => {},
 };
 
 export default GroupService;

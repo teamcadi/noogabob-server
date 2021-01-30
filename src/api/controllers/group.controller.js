@@ -53,6 +53,35 @@ const GroupController = {
       next(e);
     }
   },
+
+  // ?: 안드로이드 모듈 테스트 중
+  // todo: 파트원과 상의 후 구현하기
+  // todo: 가장 최근의 데이터가 0 인덱스로 구현하기
+  getTimeline: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      // await GroupService.getTimeline(key, groupId);
+      const dummy = [
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임꺽정" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임영웅" },
+        { time: 1611766027000, type: 0, content: "밥", subContent: "딸 임솔히" },
+        { time: 1611766027000, type: 1, content: "간식", subContent: "엄마 오씨" },
+        { time: 1611766027000, type: 0, content: "밥", subContent: "아빠 임씨" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 1, content: "간식", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611938892000, type: 0, content: "밥", subContent: "아들 임태호" },
+        { time: 1611679627000, type: 1, content: "간식", subContent: "아들 임태호" },
+        { time: 1611679627000, type: 0, content: "밥", subContent: "아들 임태호" },
+      ];
+      res.status(200).json(getApi(true, dummy));
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 export default GroupController;

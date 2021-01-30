@@ -12,7 +12,7 @@ function groupRouter(app) {
   router.get("/:groupId/statics", staticValidation, GroupController.getStatics);
   router.post("/:groupId/album", dogImageUpload, GroupController.postAlbum);
   router.get("/:groupId/album", GroupController.getAlbum);
-  router.get("/:groupId/timeline", (req, res) => {});
+  router.get("/:groupId/timeline", GroupController.getTimeline);
 }
 
 export default groupRouter;
