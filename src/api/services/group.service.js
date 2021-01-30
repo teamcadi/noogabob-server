@@ -21,12 +21,30 @@ const GroupService = {
       const dogId = await Family.findByDogId(groupId);
       const mealRank = await Family.findByWeekMealRank(dogId.id);
       const snackRank = await Family.findByWeekSnackRank(dogId.id);
-      return { mealRank, snackRank };
+
+      if (Object.keys(mealRank).length && Object.keys(snackRank).length) {
+        return { mealRank, snackRank };
+      } else if (Object.keys(mealRank).length && !Object.keys(snackRank).length) {
+        return { mealRank, snackRank: "없음" };
+      } else if (!Object.keys(mealRank).length && Object.keys(snackRank).length) {
+        return { mealRank: "없음", snackRank };
+      } else {
+        return { mealRank: "없음", snackRank: "없음" };
+      }
     } else if (date === "month") {
       const dogId = await Family.findByDogId(groupId);
       const mealRank = await Family.findByMonthMealRank(dogId.id);
       const snackRank = await Family.findByMonthSnackRank(dogId.id);
-      return { mealRank, snackRank };
+
+      if (Object.keys(mealRank).length && Object.keys(snackRank).length) {
+        return { mealRank, snackRank };
+      } else if (Object.keys(mealRank).length && !Object.keys(snackRank).length) {
+        return { mealRank, snackRank: "없음" };
+      } else if (!Object.keys(mealRank).length && Object.keys(snackRank).length) {
+        return { mealRank: "없음", snackRank };
+      } else {
+        return { mealRank: "없음", snackRank: "없음" };
+      }
     }
   },
 
@@ -36,6 +54,26 @@ const GroupService = {
 
   getAlbum: async (groupId) => {
     return await Family.getAlbum(groupId);
+  },
+
+  getTimeline: async (groupId) => {
+    const dogId = await Family.findByDogId(groupId);
+    const meal = await Family.getMealTimeline(dogId.id);
+    const snack = await Family.getSnackTimeline(dogId.id);
+    for (let i = 0; i < Object.keys(meal).length; i++) {
+      meal[i].kind = "meal";
+    }
+    for (let i = 0; i < Object.keys(snack).length; i++) {
+      snack[i].kind = "snack";
+    }
+    const data = [...meal, ...snack];
+
+    // 밥준 순서대로 정렬하기
+    data.sort((a, b) => {
+      return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+    });
+
+    return data;
   },
 };
 

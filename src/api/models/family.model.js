@@ -2,7 +2,7 @@ import { executeQuery } from "./pool";
 
 const Family = {
   findByKey: async (fId) => {
-    const query = "SELECT fId FROM noogabab.family where fId = ?";
+    const query = "SELECT fId FROM family where fId = ?";
     const values = [fId];
     const [key] = await executeQuery(query, values);
     return key.fId;
@@ -14,7 +14,7 @@ const Family = {
     await executeQuery(query, values); // key return 제거
   },
   findByMembers: async (id) => {
-    const query = "SELECT * FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";
+    const query = "SELECT name, role FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";
     const values = [id];
     const members = await executeQuery(query, values);
     return members;
@@ -73,16 +73,30 @@ const Family = {
   },
 
   postAlbum: async (id, image) => {
-    const query = `INSERT INTO album (fId, imageName) values ((SELECT fId FROM family WHERE id=?), ?)`;
+    const query = `INSERT INTO album (fId, imageName) VALUES ((SELECT fId FROM family WHERE id=?), ?)`;
     const values = [id, image];
     await executeQuery(query, values);
   },
 
   getAlbum: async (id) => {
-    const query = `SELECT imageName as album FROM album WHERE fId = (SELECT fId FROM family WHERE id = ?) ORDER BY createdAt asc`;
+    const query = `SELECT imageName AS album FROM album WHERE fId = (SELECT fId FROM family WHERE id = ?) ORDER BY createdAt ASC`;
     const values = [id];
     const albums = await executeQuery(query, values);
     return albums;
+  },
+
+  getMealTimeline: async (id) => {
+    const query = `SELECT user.name, user.role, meal.createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt ASC;`;
+    const values = [id];
+    const data = await executeQuery(query, values);
+    return data;
+  },
+
+  getSnackTimeline: async (id) => {
+    const query = `SELECT user.name, user.role, snack.createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt ASC;`;
+    const values = [id];
+    const data = await executeQuery(query, values);
+    return data;
   },
 };
 

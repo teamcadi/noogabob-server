@@ -16,6 +16,11 @@ const GroupController = {
     try {
       const { groupId } = req.params;
       const members = await GroupService.getMembers(groupId);
+
+      if (!Object.keys(members).length) {
+        const error = new Error("Not Found Data");
+        next(error);
+      }
       res.status(200).json(getApi(true, members));
     } catch (e) {
       next(e);
@@ -49,6 +54,16 @@ const GroupController = {
       const { groupId } = req.params;
       const ablum = await GroupService.getAlbum(groupId);
       res.status(200).json(getApi(true, ablum));
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  getTimeline: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      const data = await GroupService.getTimeline(groupId);
+      res.status(200).json(getApi(true, data));
     } catch (e) {
       next(e);
     }

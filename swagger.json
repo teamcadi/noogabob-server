@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "host": "",
-  "basePath": "/",
-  "schemes": ["https", "http"],
+  "basePath": "/api",
+  "schemes": ["http", "https"],
   "info": {
     "title": "Noogabab API",
     "version": "1.0.0",
@@ -21,42 +21,191 @@
           {
             "in": "body",
             "name": "body",
-            "schema": {
-              "$ref": "#/definitions/WaitingOrder%20%EC%83%9D%EC%84%B1%20%EC%9E%85%EB%A0%A5%20%EB%AA%A8%EB%8D%B8"
-            }
+            "schema": {}
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
+          "201": {
             "schema": {
-              "$ref": "#/definitions/Boom%20%EC%98%A4%EB%A5%98%20%EB%AA%A8%EB%8D%B8"
+              "$ref": "#/definitions/keyAnswerModel"
             },
-            "description": "Bad Request"
-          },
-          "403": {
-            "schema": {
-              "$ref": "#/definitions/Boom%20%EC%98%A4%EB%A5%98%20%EB%AA%A8%EB%8D%B8"
-            },
-            "description": "Forbidden"
-          },
-          "404": {
-            "schema": {
-              "$ref": "#/definitions/Boom%20%EC%98%A4%EB%A5%98%20%EB%AA%A8%EB%8D%B8"
-            },
-            "description": "Not Found"
-          },
-          "500": {
-            "schema": {
-              "$ref": "#/definitions/Boom%20%EC%98%A4%EB%A5%98%20%EB%AA%A8%EB%8D%B8"
-            },
-            "description": "Internal Server Error"
+            "description": "Successful"
           }
         }
       }
     },
+    "/groups/{groupId}/members": {
+      "get": {
+        "summary": "가족 구성원을 조회합니다.",
+        "description": "가족 구성원을 조회합니다.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/usersAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/groups/{groupId}/statics": {
+      "get": {
+        "summary": "가족 간 밥, 간식을 준 주간, 한달 순위를 조회합니다.",
+        "description": "가족 간의 통계를 확인할 수 있습니다.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "description": "week 혹은 month 중에서 입력합니다.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/StaticAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/groups/{groupId}/album": {
+      "post": {
+        "summary": "강아지 사진을 업로드 할 수 있습니다.",
+        "description": "강아지 파일을 업로드해주세요.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "image",
+            "required": true,
+            "description": "이미지를 업로드하세요",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "description": "Successful"
+          }
+        }
+      },
+      "get": {
+        "summary": "강아지 사진을 조회합니다.",
+        "description": "강아지 조회합니다.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AlbumsAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/groups/{groupId}/timeline": {
+      "get": {
+        "summary": "밥을 준 타임라인을 조회합니다.",
+        "description": "타임라인을 조회합니다.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/TimeLineAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+
     "/cafeteria": {
       "get": {
         "summary": "모든 Cafeteria의 배열을 요청합니다.",
@@ -856,6 +1005,7 @@
       }
     }
   },
+
   "definitions": {
     "Answer 응답 모델": {
       "type": "object",
@@ -1191,6 +1341,134 @@
         }
       },
       "required": ["number", "deviceIdentifier"]
+    },
+
+    "keyAnswerModel": {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "userModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "usersAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userModel"
+          }
+        }
+      }
+    },
+    "foodModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "cnt": {
+          "type": "number"
+        }
+      }
+    },
+    "StaticAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "mealRank": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/foodModel"
+              }
+            },
+            "snackRank": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/foodModel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AlbumModel": {
+      "type": "object",
+      "properties": {
+        "album": {
+          "type": "string"
+        }
+      }
+    },
+    "AlbumsAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlbumModel"
+          }
+        }
+      }
+    },
+    "TimeLineModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        }
+      }
+    },
+    "TimeLineAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeLineModel"
+          }
+        }
+      }
     }
   },
   "x-alt-definitions": {}

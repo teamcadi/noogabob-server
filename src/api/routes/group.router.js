@@ -13,7 +13,7 @@ function groupRouter(app) {
   router.get("/:groupId/statics", authorization, staticValidation, GroupController.getStatics);
   router.post("/:groupId/album", authorization, dogImageUpload, GroupController.postAlbum);
   router.get("/:groupId/album", authorization, GroupController.getAlbum);
-  router.get("/:groupId/timeline", authorization, (req, res) => {});
+  router.get("/:groupId/timeline", authorization, GroupController.getTimeline);
 }
 
 export default groupRouter;
