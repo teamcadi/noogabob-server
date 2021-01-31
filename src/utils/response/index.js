@@ -11,7 +11,9 @@ const getApi = (suc, mes, data) => {
   if (suc) {
     data = mes;
     return { success: suc, data };
-  } else return { success: suc, message: mes };
+  } else {
+    return { success: suc, message: mes };
+  }
 };
 
 export { getApi };
