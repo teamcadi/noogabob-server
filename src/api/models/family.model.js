@@ -2,10 +2,10 @@ import { executeQuery } from "./pool";
 
 const Family = {
   findByKey: async (fId) => {
-    const query = "SELECT fId FROM family where fId = ?";
+    const query = "SELECT groupId FROM family where fId = ?";
     const values = [fId];
     const [key] = await executeQuery(query, values);
-    return key.fId;
+    return key.groupId;
   },
 
   postKey: async (fId) => {
@@ -86,14 +86,14 @@ const Family = {
   },
 
   getMealTimeline: async (id) => {
-    const query = `SELECT user.name, user.role, meal.createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt ASC;`;
+    const query = `SELECT user.name, user.role, meal.createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt DESC;`;
     const values = [id];
     const data = await executeQuery(query, values);
     return data;
   },
 
   getSnackTimeline: async (id) => {
-    const query = `SELECT user.name, user.role, snack.createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt ASC;`;
+    const query = `SELECT user.name, user.role, snack.createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt DESC;`;
     const values = [id];
     const data = await executeQuery(query, values);
     return data;

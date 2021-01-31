@@ -12,9 +12,14 @@ module.exports = {
       next(error);
     } else {
       try {
-        const fId = await Family.findByKey(key);
-        if (fId) {
+        const id = await Family.findByKey(key);
+        const { groupId } = req.params;
+        if (id == groupId) {
           next();
+        } else {
+          const error = new Error("인증 실패");
+          error.status = 406;
+          next(error);
         }
       } catch (error) {
         next(error);

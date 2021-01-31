@@ -1,5 +1,6 @@
 import { Router } from "express";
 import GroupController from "../controllers/group.controller";
+import { dogImageUpload } from "../middlewares/multer/dog.multer";
 const router = Router();
 
 function groupRouter(app) {

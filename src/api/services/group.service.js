@@ -21,30 +21,13 @@ const GroupService = {
       const dogId = await Family.findByDogId(groupId);
       const mealRank = await Family.findByWeekMealRank(dogId.id);
       const snackRank = await Family.findByWeekSnackRank(dogId.id);
-
-      if (Object.keys(mealRank).length && Object.keys(snackRank).length) {
-        return { mealRank, snackRank };
-      } else if (Object.keys(mealRank).length && !Object.keys(snackRank).length) {
-        return { mealRank, snackRank: "없음" };
-      } else if (!Object.keys(mealRank).length && Object.keys(snackRank).length) {
-        return { mealRank: "없음", snackRank };
-      } else {
-        return { mealRank: "없음", snackRank: "없음" };
-      }
+      return { mealRank, snackRank };
     } else if (date === "month") {
       const dogId = await Family.findByDogId(groupId);
       const mealRank = await Family.findByMonthMealRank(dogId.id);
       const snackRank = await Family.findByMonthSnackRank(dogId.id);
 
-      if (Object.keys(mealRank).length && Object.keys(snackRank).length) {
-        return { mealRank, snackRank };
-      } else if (Object.keys(mealRank).length && !Object.keys(snackRank).length) {
-        return { mealRank, snackRank: "없음" };
-      } else if (!Object.keys(mealRank).length && Object.keys(snackRank).length) {
-        return { mealRank: "없음", snackRank };
-      } else {
-        return { mealRank: "없음", snackRank: "없음" };
-      }
+      return { mealRank, snackRank };
     }
   },
 
@@ -60,20 +43,35 @@ const GroupService = {
     const dogId = await Family.findByDogId(groupId);
     const meal = await Family.getMealTimeline(dogId.id);
     const snack = await Family.getSnackTimeline(dogId.id);
-    for (let i = 0; i < Object.keys(meal).length; i++) {
-      meal[i].kind = "meal";
-    }
-    for (let i = 0; i < Object.keys(snack).length; i++) {
-      snack[i].kind = "snack";
-    }
-    const data = [...meal, ...snack];
 
-    // 밥준 순서대로 정렬하기
-    data.sort((a, b) => {
-      return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+    meal.forEach((element) => {
+      element.type = 0;
+      element.content = "밥";
     });
 
-    return data;
+    snack.forEach((element) => {
+      element.type = 1;
+      element.content = "간식";
+    });
+
+    const datas = [...meal, ...snack];
+    datas.sort((a, b) => {
+      return a.createdAt > b.createdAt ? -1 : 1;
+    });
+
+    let updateDatas = [];
+
+    for (let i = 0; i < datas.length; i++) {
+      let subContent = datas[i].role.concat(" ", datas[i].name);
+      let time = Date.parse(datas[i].createdAt) / 1000;
+      let data = {};
+      data.time = time;
+      data.type = datas[i].type;
+      data.content = datas[i].content;
+      data.subContent = subContent;
+      updateDatas.push(data);
+    }
+    return updateDatas;
   },
 };
 
