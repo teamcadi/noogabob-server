@@ -26,6 +26,7 @@ const GroupService = {
       const dogId = await Family.findByDogId(groupId);
       const mealRank = await Family.findByMonthMealRank(dogId.id);
       const snackRank = await Family.findByMonthSnackRank(dogId.id);
+
       return { mealRank, snackRank };
     }
   },
@@ -38,7 +39,40 @@ const GroupService = {
     return await Family.getAlbum(groupId);
   },
 
-  getTimeline: async (key, groupId) => {},
+  getTimeline: async (groupId) => {
+    const dogId = await Family.findByDogId(groupId);
+    const meal = await Family.getMealTimeline(dogId.id);
+    const snack = await Family.getSnackTimeline(dogId.id);
+
+    meal.forEach((element) => {
+      element.type = 0;
+      element.content = "밥";
+    });
+
+    snack.forEach((element) => {
+      element.type = 1;
+      element.content = "간식";
+    });
+
+    const datas = [...meal, ...snack];
+    datas.sort((a, b) => {
+      return a.createdAt > b.createdAt ? -1 : 1;
+    });
+
+    let updateDatas = [];
+
+    for (let i = 0; i < datas.length; i++) {
+      let subContent = datas[i].role.concat(" ", datas[i].name);
+      let time = Date.parse(datas[i].createdAt) / 1000;
+      let data = {};
+      data.time = time;
+      data.type = datas[i].type;
+      data.content = datas[i].content;
+      data.subContent = subContent;
+      updateDatas.push(data);
+    }
+    return updateDatas;
+  },
 };
 
 export default GroupService;
