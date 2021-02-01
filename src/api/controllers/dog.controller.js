@@ -1,13 +1,13 @@
 import { getApi } from "../../utils/response";
-import GroupService from "../services/dog.service";
+import DogService from "../services/dog.service";
 
 const DogController = {
   postDog: async (req, res, next) => {
     try {
-      const { dogId } = req.params;
-      const { name, age, kind, meal1, meal2, meal3 } = req.body;
-      const user = await UserService.postDog(dogId, name, age, kind, meal1, meal2, meal3);
-      res.status(201).json(getApi(true));
+      const { userkey } = req.headers;
+      const { name, age, kind, meal1 } = req.body;
+      const dog = await DogService.postDog(userkey, name, age, kind, meal1);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);
@@ -16,10 +16,11 @@ const DogController = {
 
   updateDog: async (req, res, next) => {
     try {
+      const { userkey } = req.headers;
       const { dogId } = req.params;
-      const { name, age, kind, meal1, meal2, meal3 } = req.body;
-      const user = await UserService.updateDog(dogId, name, age, kind, meal1, meal2, meal3);
-      res.status(201).json(getApi(true));
+      const { name, age, kind, meal1 } = req.body;
+      const dog = await DogService.updateDog(userkey, dogId, name, age, kind, meal1);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);
@@ -30,8 +31,8 @@ const DogController = {
     try {
       const { dogId } = req.params;
       const { userId } = req.body;
-      const user = await UserService.feedDog(dogId, userId);
-      res.status(201).json(getApi(true));
+      const meal = await DogService.feedDog(dogId, userId);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);
@@ -42,8 +43,8 @@ const DogController = {
     try {
       const { dogId } = req.params;
       const { userId } = req.body;
-      const user = await UserService.snackDog(dogId, userId);
-      res.status(201).json(getApi(true));
+      const snack = await DogService.snackDog(dogId, userId);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);

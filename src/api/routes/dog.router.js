@@ -8,7 +8,7 @@ function dogRouter(app) {
   router.post("/", DogController.postDog);
   router.post("/:dogId/meals", DogController.feedDog);
   router.post("/:dogId/snacks", DogController.snackDog);
-  router.put("/:dogId/:id", DogController.updateDog);
+  router.put("/:dogId", DogController.updateDog);
 }
 
 export default dogRouter;

@@ -1,40 +1,54 @@
 import { getApi } from "../../utils/response";
 import UserService from "../services/user.service";
 
+//컨트롤러 하나씩 짜기
 // 컨트롤러에서 모든 에러를 체크함
 const UserController = {
-  postUser: async (req, res, next) => {},
+  postUser: async (req, res, next) => {
+    try {
+      // key 불러와서  user 만들기
+      const { userkey } = req.headers;
+      const { name, role } = req.body;
+      const user = await UserService.postUser(userkey, name, role);
+      res.status(201).json({ suc: true });
+    } catch (error) {
+      next(error);
+    }
+  },
 
   getUser: async (req, res, next) => {
     try {
+      const { userkey } = req.headers;
       const { userId } = req.params;
-      const user = await UserService.getUser(userId);
+      const user = await UserService.getUser(userId, userkey);
       if (user === undefined) {
-        res.status(200).json(getApi(false, user));
+        res.status(200).json({ suc: false });
       } else {
-        res.status(200).json(getApi(true, user));
+        res.status(200).json({ suc: true, data: user });
       }
     } catch (error) {
       // error handling
       next(error);
     }
-    //user가 없으면 success:false 나오게 만들기
   },
-  putUser: async (req, res, next) => {
+
+  updateUser: async (req, res, next) => {
     try {
+      const { userkey } = req.headers;
       const { userId } = req.params;
       const { name, role } = req.body;
-      const user = await UserService.putUser(userId, name, role);
-      res.status(201).json(getApi(true));
+      const user = await UserService.updateUser(userId, name, role, userkey);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
     }
   },
   deleteUser: async (req, res, next) => {
     try {
+      const { userkey } = req.headers;
       const { userId } = req.params;
-      await UserService.deleteUser(userId);
-      res.status(200).json(getApi(true));
+      await UserService.deleteUser(userId, userkey);
+      res.status(200).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
     }
