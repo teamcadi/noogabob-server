@@ -20,8 +20,9 @@ const GroupController = {
       if (!Object.keys(members).length) {
         const error = new Error("Not Found Data");
         next(error);
+      } else {
+        res.status(200).json(getApi({ suc: true, data: members }));
       }
-      res.status(200).json(getApi({ suc: true, data: members }));
     } catch (e) {
       next(e);
     }
