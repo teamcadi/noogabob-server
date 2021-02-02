@@ -1,20 +1,20 @@
 import User from "../models/user.model";
 
 const UserService = {
-  postUser: async (userkey, name, role) => {
-    return await User.postUser(userkey, name, role);
+  postUser: async (key, name, role) => {
+    return await User.postUser(key, name, role);
   },
 
-  getUser: async (userId, userkey) => {
-    return await User.findById(userId, userkey);
+  getUser: async (userId, key) => {
+    return await User.findById(userId, key);
   },
 
-  updateUser: async (userId, name, role, userkey) => {
-    return await User.updateUser(userId, name, role, userkey);
+  updateUser: async (userId, name, role, key) => {
+    return await User.updateUser(userId, name, role, key);
   },
 
-  deleteUser: async (userId, userkey) => {
-    await User.deleteUser(userId, userkey);
+  deleteUser: async (userId, key) => {
+    await User.deleteUser(userId, key);
   },
 };
 

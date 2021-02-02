@@ -7,9 +7,9 @@ const UserController = {
   postUser: async (req, res, next) => {
     try {
       // key 불러와서  user 만들기
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { name, role } = req.body;
-      const user = await UserService.postUser(userkey, name, role);
+      const user = await UserService.postUser(key, name, role);
       res.status(201).json({ suc: true });
     } catch (error) {
       next(error);
@@ -18,9 +18,9 @@ const UserController = {
 
   getUser: async (req, res, next) => {
     try {
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { userId } = req.params;
-      const user = await UserService.getUser(userId, userkey);
+      const user = await UserService.getUser(userId, key);
       if (user === undefined) {
         res.status(200).json({ suc: false });
       } else {
@@ -34,10 +34,10 @@ const UserController = {
 
   updateUser: async (req, res, next) => {
     try {
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { userId } = req.params;
       const { name, role } = req.body;
-      const user = await UserService.updateUser(userId, name, role, userkey);
+      const user = await UserService.updateUser(userId, name, role, key);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
@@ -45,9 +45,9 @@ const UserController = {
   },
   deleteUser: async (req, res, next) => {
     try {
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { userId } = req.params;
-      await UserService.deleteUser(userId, userkey);
+      await UserService.deleteUser(userId, key);
       res.status(200).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
