@@ -4,9 +4,9 @@ import DogService from "../services/dog.service";
 const DogController = {
   postDog: async (req, res, next) => {
     try {
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { name, age, kind, meal1 } = req.body;
-      const dog = await DogService.postDog(userkey, name, age, kind, meal1);
+      const dog = await DogService.postDog(key, name, age, kind, meal1);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
@@ -16,10 +16,10 @@ const DogController = {
 
   updateDog: async (req, res, next) => {
     try {
-      const { userkey } = req.headers;
+      const { key } = req.headers;
       const { dogId } = req.params;
       const { name, age, kind, meal1 } = req.body;
-      const dog = await DogService.updateDog(userkey, dogId, name, age, kind, meal1);
+      const dog = await DogService.updateDog(key, dogId, name, age, kind, meal1);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
