@@ -1,13 +1,14 @@
 import { Router } from "express";
+import DogController from "../controllers/dog.controller";
 const router = Router();
 
 function dogRouter(app) {
   app.use("/dogs", router);
 
-  router.post("/", (req, res) => {});
-  router.post("/:dogId/meal", (req, res) => {});
-  router.post("/:dogId/snack", (req, res) => {});
-  router.put("/:dogId/:id", (req, res) => {});
+  router.post("/", DogController.postDog);
+  router.post("/:dogId/meals", DogController.feedDog);
+  router.post("/:dogId/snacks", DogController.snackDog);
+  router.put("/:dogId", DogController.updateDog);
 }
 
 export default dogRouter;
