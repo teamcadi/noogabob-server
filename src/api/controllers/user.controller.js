@@ -22,9 +22,9 @@ const UserController = {
       const { userId } = req.params;
       const user = await UserService.getUser(userId, key);
       if (user === undefined) {
-        res.status(200).json({ suc: false });
+        res.status(200).json(getApi({ suc: false }));
       } else {
-        res.status(200).json({ suc: true, data: user });
+        res.status(200).json(getApi({ suc: true, data: user }));
       }
     } catch (error) {
       // error handling
