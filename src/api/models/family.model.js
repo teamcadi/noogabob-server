@@ -14,7 +14,7 @@ const Family = {
     await executeQuery(query, values); // key return 제거
   },
   findByMembers: async (id) => {
-    const query = "SELECT name, role FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";
+    const query = "SELECT id, name, role FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";
     const values = [id];
     const members = await executeQuery(query, values);
     return members;
@@ -79,7 +79,7 @@ const Family = {
   },
 
   getAlbum: async (id) => {
-    const query = `SELECT imageName AS album FROM album WHERE fId = (SELECT fId FROM family WHERE id = ?) ORDER BY createdAt ASC`;
+    const query = `SELECT id, imageName AS album FROM album WHERE fId = (SELECT fId FROM family WHERE id = ?) ORDER BY createdAt ASC`;
     const values = [id];
     const albums = await executeQuery(query, values);
     return albums;

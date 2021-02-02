@@ -9,6 +9,8 @@ const app = express();
 const env = config.nodeEnv || "development";
 const hostname = env == "development" ? "localhost" : config.hostname;
 
+// 정적 파일
+app.use("/upload", express.static("upload"));
 // api 문서
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swagger, { explorer: true }));
 

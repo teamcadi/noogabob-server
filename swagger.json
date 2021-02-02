@@ -204,6 +204,135 @@
           }
         }
       }
+    },
+    "/users": {
+      "post": {
+        "summary": "사용자를 등록합니다.",
+        "description": "사용자를 등록할 수 있습니다.",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/keyAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "summary": "사용자를 조회합니다.",
+        "description": "사용자를 조회할 수 있습니다.",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "사용자 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/userAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      },
+      "put": {
+        "summary": "사용자정보를 수정합니다.",
+        "description": "사용자정보를 수정할 수 있습니다.",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "사용자 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reqUserModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/postSuccessModel"
+            },
+            "description": "Successful"
+          }
+        }
+      },
+      "delete": {
+        "summary": "사용자가 탈퇴를합니다.",
+        "description": "사용자가 탈퇴할 수 있습니다.",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "사용자 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/postSuccessModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
     }
   },
 
@@ -237,11 +366,42 @@
     "userModel": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "number"
+        },
         "name": {
           "type": "string"
         },
         "role": {
           "type": "string"
+        }
+      }
+    },
+    "reqUserModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "userAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userModel"
+          }
         }
       }
     },
@@ -307,6 +467,9 @@
     "AlbumModel": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "number"
+        },
         "album": {
           "type": "string"
         }
