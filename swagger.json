@@ -21,7 +21,9 @@
           {
             "in": "body",
             "name": "body",
-            "schema": {}
+            "schema": {
+              "$ref": "#/definitions/DogModel"
+            }
           }
         ],
         "responses": {
@@ -223,7 +225,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userModel"
+              "$ref": "#/definitions/reqUserModel"
             }
           }
         ],
@@ -333,6 +335,123 @@
           }
         }
       }
+    },
+    "/dogs/{dogId}": {
+      "put": {
+        "summary": "강아지 정보를 수정합니다.",
+        "description": "강아지 정보를 수정할 수 있습니다.",
+        "tags": ["dogs"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "dogId",
+            "required": true,
+            "description": "강아지 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DogModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/postSuccessModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/dogs/{dogId}/meals": {
+      "post": {
+        "summary": "강아지에게 밥을 줍니다.",
+        "description": "강아지에게 밥을 줍니다.",
+        "tags": ["dogs"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "dogId",
+            "required": true,
+            "description": "강아지 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserId"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/postSuccessModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/dogs/{dogId}/snacks": {
+      "post": {
+        "summary": "강아지에게 간식을 줍니다.",
+        "description": "강아지에게 간식을 줍니다.",
+        "tags": ["dogs"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "dogId",
+            "required": true,
+            "description": "강아지 번호를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserId"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/postSuccessModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
     }
   },
 
@@ -385,6 +504,14 @@
         },
         "role": {
           "type": "string"
+        }
+      }
+    },
+    "UserId": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number"
         }
       }
     },
@@ -522,6 +649,26 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/TimeLineModel"
+          }
+        }
+      }
+    },
+    "DogModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "meals": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
