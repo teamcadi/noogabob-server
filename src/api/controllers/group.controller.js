@@ -4,7 +4,8 @@ import GroupService from "../services/group.service";
 const GroupController = {
   getKey: async (req, res, next) => {
     try {
-      const key = await GroupService.getKey();
+      const { name, age, kind, meals } = req.body;
+      const key = await GroupService.postGroup(name, age, kind, meals);
       res.status(201).json(getApi({ suc: true, data: key }));
     } catch (e) {
       // error handling

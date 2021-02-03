@@ -11,7 +11,22 @@ const Family = {
   postKey: async (fId) => {
     const query = "INSERT INTO family (fId) values (?)";
     const values = [fId];
-    await executeQuery(query, values); // key return 제거
+    await executeQuery(query, values);
+  },
+
+  postDog: async (fId, name, age, kind, meals) => {
+    let query, values;
+    if (meals.length === 1) {
+      query = "INSERT INTO dog (fId, name, age, kind, meal1) VALUES (?, ?, ?, ?, ?)";
+      values = [fId, name, age, kind, meals[0]];
+    } else if (meals.length === 2) {
+      query = "INSERT INTO dog (fId, name, age, kind, meal1, meal2) VALUES (?, ?, ?, ?, ?, ?)";
+      values = [fId, name, age, kind, meals[0], meals[1]];
+    } else {
+      query = "INSERT INTO dog (fId, name, age, kind, meal1, meal2, meal3) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      values = [fId, name, age, kind, meals[0], meals[1], meals[2]];
+    }
+    await executeQuery(query, values);
   },
   findByMembers: async (id) => {
     const query = "SELECT id, name, role FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";
