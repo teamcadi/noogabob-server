@@ -10,7 +10,7 @@ const UserController = {
       const { key } = req.headers;
       const { name, role } = req.body;
       const user = await UserService.postUser(key, name, role);
-      res.status(201).json({ suc: true });
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
     }
