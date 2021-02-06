@@ -41,48 +41,48 @@ const Family = {
     const [dogId] = await executeQuery(query, values);
     return dogId;
   },
-  findByMonthMealRank: async (id) => {
+  findByMonthMealRank: async (id, date) => {
     const query = `select name, role, MONTH_COUNT as cnt
                     from user inner join 
                     (select userId, dogId, count(year(createdAt)) as YEAR_COUNT, count(month(createdAt)) as MONTH_COUNT 
                     from meal 
-                    where dogId= ? and year(createdAt)=year(Now()) and month(createdAt)=month(Now()) GROUP BY userId) as sub 
+                    where dogId= ? and year(createdAt)=year(?) and month(createdAt)=month(?) GROUP BY userId) as sub 
                     on sub.userId = user.id ORDER BY cnt desc`;
-    const values = [id];
+    const values = [id, date, date];
     const monthdata = await executeQuery(query, values);
     return monthdata;
   },
 
-  findByMonthSnackRank: async (id) => {
+  findByMonthSnackRank: async (id, date) => {
     const query = `select name, role, MONTH_COUNT as cnt
                     from user inner join 
                     (select userId, dogId, count(year(createdAt)) as YEAR_COUNT, count(month(createdAt)) as MONTH_COUNT 
                     from snack 
-                    where dogId= ? and year(createdAt)=year(Now()) and month(createdAt)=month(Now()) GROUP BY userId) as sub 
+                    where dogId= ? and year(createdAt)=year(?) and month(createdAt)=month(?) GROUP BY userId) as sub 
                     on sub.userId = user.id ORDER BY cnt desc`;
-    const values = [id];
+    const values = [id, date, date];
     const monthdata = await executeQuery(query, values);
     return monthdata;
   },
 
-  findByWeekMealRank: async (id) => {
-    const query = `select name, role, cnt from user inner join
-                  (select userId, dogId, count(date_format(createdAt, "%Y-%m-%d")) as cnt from meal 
-                  where dogId = ? and 
-                  date_format(createdAt, "%Y-%m-%d") between date_format(DATE_SUB(Now(), INTERVAL (DAYOFWEEK(Now())-2) DAY), "%Y-%m-%d") and date_format(DATE_SUB(Now(), INTERVAL (DAYOFWEEK(Now())-8) DAY), "%Y-%m-%d")
-                  GROUP BY userId) as sub on userId = user.id ORDER BY cnt desc`;
-    const values = [id];
+  findByWeekMealRank: async (id, date) => {
+    const query = `SELECT user.id, name, role, cnt FROM user INNER JOIN
+                  (SELECT userId, dogId, COUNT(DATE_FORMAT(createdAt, "%Y-%m-%d")) as cnt FROM meal 
+                  WHERE dogId = ? AND 
+                  DATE_FORMAT(createdAt, "%Y-%m-%d") BETWEEN DATE_FORMAT(DATE_SUB(?, INTERVAL (DAYOFWEEK(?)-1) DAY), "%Y-%m-%d") AND DATE_FORMAT(DATE_SUB(?, INTERVAL (DAYOFWEEK(?)-7) DAY), "%Y-%m-%d")
+                  GROUP BY userId) as sub ON userId = user.id ORDER BY cnt DESC`;
+    const values = [id, date, date, date, date];
     const weekdata = await executeQuery(query, values);
     return weekdata;
   },
 
-  findByWeekSnackRank: async (id) => {
+  findByWeekSnackRank: async (id, date) => {
     const query = `select name, role, cnt from user inner join
                   (select userId, dogId, count(date_format(createdAt, "%Y-%m-%d")) as cnt from snack 
                   where dogId = ? and 
-                  date_format(createdAt, "%Y-%m-%d") between date_format(DATE_SUB(Now(), INTERVAL (DAYOFWEEK(Now())-2) DAY), "%Y-%m-%d") and date_format(DATE_SUB(Now(), INTERVAL (DAYOFWEEK(Now())-8) DAY), "%Y-%m-%d")
+                  date_format(createdAt, "%Y-%m-%d") between date_format(DATE_SUB(?, INTERVAL (DAYOFWEEK(?)-1) DAY), "%Y-%m-%d") and date_format(DATE_SUB(?, INTERVAL (DAYOFWEEK(?)-7) DAY), "%Y-%m-%d")
                   GROUP BY userId) as sub on userId = user.id ORDER BY cnt desc`;
-    const values = [id];
+    const values = [id, date, date, date, date];
     const weekdata = await executeQuery(query, values);
     return weekdata;
   },

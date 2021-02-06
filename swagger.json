@@ -89,9 +89,16 @@
           },
           {
             "in": "query",
-            "name": "date",
+            "name": "type",
             "required": true,
             "description": "week 혹은 month 중에서 입력합니다.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "description": "날짜를 입력해주세요",
             "type": "string"
           }
         ],
