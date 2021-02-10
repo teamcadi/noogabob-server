@@ -9,11 +9,11 @@ module.exports = {
       next(error);
     } else {
       try {
-        const id = await Family.findByKey(key);
         const { groupId } = req.params;
-        if (id == groupId) {
-          next();
-        } else {
+        const id = await Family.findByKey(key);
+
+        if (id == groupId) next();
+        else {
           const error = new Error("인증 실패");
           error.status = 406;
           next(error);
