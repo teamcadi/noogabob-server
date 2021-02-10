@@ -2,7 +2,7 @@ import { getApi } from "../../utils/response";
 import GroupService from "../services/group.service";
 
 const GroupController = {
-  CreateGroup: async (req, res, next) => {
+  createGroup: async (req, res, next) => {
     try {
       const { name, age, kind, meals } = req.body;
       const data = await GroupService.postGroup(name, age, kind, meals);
