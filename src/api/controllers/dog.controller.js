@@ -2,18 +2,6 @@ import { getApi } from "../../utils/response";
 import DogService from "../services/dog.service";
 
 const DogController = {
-  postDog: async (req, res, next) => {
-    try {
-      const { key } = req.headers;
-      const { name, age, kind, meal1 } = req.body;
-      const dog = await DogService.postDog(key, name, age, kind, meal1);
-      res.status(201).json(getApi({ suc: true }));
-    } catch (error) {
-      // error handling
-      next(error);
-    }
-  },
-
   updateDog: async (req, res, next) => {
     try {
       const { key } = req.headers;
