@@ -8,7 +8,7 @@ const router = Router();
 function groupRouter(app) {
   app.use("/groups", router);
 
-  router.post("/", groupValidation, GroupController.CreateGroup);
+  router.post("/", groupValidation, GroupController.createGroup);
   router.get("/:groupId", authorization, GroupController.getGroup);
   router.get("/:groupId/members", authorization, GroupController.getMembers);
   router.get("/:groupId/statics", staticValidation, authorization, GroupController.getStatics);

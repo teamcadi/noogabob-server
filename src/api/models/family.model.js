@@ -2,6 +2,12 @@ import DogService from "../services/dog.service";
 import { executeQuery } from "./pool";
 
 const Family = {
+  findByGroup: async (fId) => {
+    const query = "SELECT fId FROM family where fId = ?";
+    const values = [fId];
+    const [key] = await executeQuery(query, values);
+    return key.fId;
+  },
   findByKey: async (fId) => {
     const query = "SELECT id FROM family where fId = ?";
     const values = [fId];

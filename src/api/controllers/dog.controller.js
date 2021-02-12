@@ -19,7 +19,7 @@ const DogController = {
     try {
       const { dogId } = req.params;
       const { userId } = req.body;
-      const meal = await DogService.feedDog(dogId, userId);
+      await DogService.feedDog(dogId, userId);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
@@ -31,7 +31,7 @@ const DogController = {
     try {
       const { dogId } = req.params;
       const { userId } = req.body;
-      const snack = await DogService.snackDog(dogId, userId);
+      await DogService.snackDog(dogId, userId);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling

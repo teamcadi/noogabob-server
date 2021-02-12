@@ -8,7 +8,7 @@ const schema = {
     name: joi.string().required(),
     age: joi.number().integer().required(),
     kind: joi.string().required(),
-    meals: joi.array().min(1).max(3),
+    meals: joi.array().items(joi.string()).unique().min(1).max(3),
   }),
   /**
    * @description 식사 제공, 간식 제공 유효성 검사
