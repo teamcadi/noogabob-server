@@ -1,4 +1,6 @@
+import Dog from "../../models/dog.model";
 import Family from "../../models/family.model";
+import User from "../../models/user.model";
 
 module.exports = {
   authorization: async (req, res, next) => {
@@ -9,14 +11,45 @@ module.exports = {
       next(error);
     } else {
       try {
-        const id = await Family.findByKey(key);
-        const { groupId } = req.params;
-        if (id == groupId) {
-          next();
-        } else {
-          const error = new Error("인증 실패");
-          error.status = 406;
-          next(error);
+        const { groupId, dogId, userId } = req.params; // 인증으로 사용할 변수
+        console.log(groupId, dogId, userId);
+        if (groupId !== undefined) {
+          const id = await Family.findByKey(key);
+
+          if (id == groupId) next();
+          else {
+            const error = new Error("인증 실패");
+            error.status = 406;
+            next(error);
+          }
+        }
+        if (dogId !== undefined) {
+          const id = await Dog.findByKey(key);
+          if (id == dogId) next();
+          else {
+            const error = new Error("인증 실패");
+            error.status = 406;
+            next(error);
+          }
+        }
+        if (userId !== undefined) {
+          const id = await User.findByKey(key, userId);
+          if (id == userId) next();
+          else {
+            const error = new Error("인증 실패");
+            error.status = 406;
+            next(error);
+          }
+        }
+        if (userId === undefined) {
+          console.log("사용자 등록");
+          const groupKey = await Family.findByGroup(key);
+          if (key === groupKey) next();
+          else {
+            const error = new Error("인증 실패");
+            error.status = 406;
+            next(error);
+          }
         }
       } catch (error) {
         next(error);

@@ -1,16 +1,28 @@
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
 import Family from "../models/family.model";
 
 const GroupService = {
   postGroup: async (name, age, kind, meals) => {
     const key = uuidv4();
-    // const hashKey = await bcrypt.hash(key, await bcrypt.genSalt(10));
     await Family.postKey(key);
-    await Family.postDog(key, name, age, kind, meals);
-    return key;
+    const dogGroupId = await Family.postDog(key, name, age, kind, meals);
+    return { key: key, dogId: dogGroupId.dogId, groupId: dogGroupId.groupId };
   },
+  getGroup: async (groupId) => {
+    const data = await Family.getGroup(groupId);
+    let updateData = {};
+    let meals = [];
+    updateData.name = data.name;
+    updateData.age = data.age;
+    updateData.kind = data.kind;
 
+    if (data.meal1 !== null) meals.push(data.meal1);
+    if (data.meal2 !== null) meals.push(data.meal2);
+    if (data.meal3 !== null) meals.push(data.meal3);
+    updateData.meals = meals;
+
+    return updateData;
+  },
   getMembers: async (groupId) => {
     return await Family.findByMembers(groupId);
   },

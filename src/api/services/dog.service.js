@@ -1,10 +1,6 @@
 import Dog from "../models/dog.model";
 
 const DogService = {
-  postDog: async (key, name, age, kind, meal1) => {
-    return await Dog.postDog(key, name, age, kind, meal1);
-  },
-
   updateDog: async (key, dogId, name, age, kind, meal1) => {
     return await Dog.updateDog(key, dogId, name, age, kind, meal1);
   },

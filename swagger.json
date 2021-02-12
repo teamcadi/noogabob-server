@@ -36,6 +36,37 @@
         }
       }
     },
+    "/groups/{groupId}": {
+      "get": {
+        "summary": "그룹으로 등록된 강아지 정보가 조회합니다.",
+        "description": "그룹을 등록되어진 강아지의 정보를 조회할 수 있습니다.",
+        "tags": ["groups"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "groupId",
+            "required": true,
+            "description": "그룹 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/DogAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
     "/groups/{groupId}/members": {
       "get": {
         "summary": "가족 구성원을 조회합니다.",
@@ -677,6 +708,20 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "DogAnswerModel": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/DogModel"
         }
       }
     }

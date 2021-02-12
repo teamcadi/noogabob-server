@@ -1,13 +1,25 @@
+import DogService from "../services/dog.service";
 import { executeQuery } from "./pool";
 
 const Family = {
-  findByKey: async (fId) => {
-    const query = "SELECT groupId FROM family where fId = ?";
+  findByGroup: async (fId) => {
+    const query = "SELECT fId FROM family where fId = ?";
     const values = [fId];
     const [key] = await executeQuery(query, values);
-    return key.groupId;
+    return key.fId;
   },
-
+  findByKey: async (fId) => {
+    const query = "SELECT id FROM family where fId = ?";
+    const values = [fId];
+    const [key] = await executeQuery(query, values);
+    return key.id;
+  },
+  getGroup: async (groupId) => {
+    const query = "SELECT name, age, kind, meal1, meal2, meal3 FROM dog WHERE fId = (SELECT fId FROM family WHERE id = ?);";
+    const values = [groupId];
+    const [dog] = await executeQuery(query, values);
+    return dog;
+  },
   postKey: async (fId) => {
     const query = "INSERT INTO family (fId) values (?)";
     const values = [fId];
@@ -27,6 +39,10 @@ const Family = {
       values = [fId, name, age, kind, meals[0], meals[1], meals[2]];
     }
     await executeQuery(query, values);
+    query = "SELECT dog.id as dogId, family.id as groupId FROM dog, family WHERE dog.fId = ? AND family.fId = ?";
+    values = [fId, fId];
+    const [dogGroupId] = await executeQuery(query, values);
+    return dogGroupId;
   },
   findByMembers: async (id) => {
     const query = "SELECT id, name, role FROM user WHERE fId = (SELECT fId FROM family WHERE id=?)";

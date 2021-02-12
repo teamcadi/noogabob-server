@@ -2,13 +2,22 @@ import { getApi } from "../../utils/response";
 import GroupService from "../services/group.service";
 
 const GroupController = {
-  getKey: async (req, res, next) => {
+  createGroup: async (req, res, next) => {
     try {
       const { name, age, kind, meals } = req.body;
-      const key = await GroupService.postGroup(name, age, kind, meals);
-      res.status(201).json(getApi({ suc: true, data: key }));
+      const data = await GroupService.postGroup(name, age, kind, meals);
+      res.status(201).json(getApi({ suc: true, data }));
     } catch (e) {
       // error handling
+      next(e);
+    }
+  },
+  getGroup: async (req, res, next) => {
+    try {
+      const { groupId } = req.params;
+      const data = await GroupService.getGroup(groupId);
+      res.status(200).json(getApi({ suc: true, data }));
+    } catch (e) {
       next(e);
     }
   },
