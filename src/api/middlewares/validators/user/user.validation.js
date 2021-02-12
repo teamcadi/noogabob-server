@@ -1,4 +1,4 @@
-import { userSchema } from "./static.schema";
+import { userSchema } from "./user.schema";
 
 module.exports = {
   /**

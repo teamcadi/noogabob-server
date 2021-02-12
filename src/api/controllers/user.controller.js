@@ -9,8 +9,8 @@ const UserController = {
       // key 불러와서  user 만들기
       const { key } = req.headers;
       const { name, role } = req.body;
-      const user = await UserService.postUser(key, name, role);
-      res.status(201).json(getApi({ suc: true }));
+      const userId = await UserService.postUser(key, name, role);
+      res.status(201).json(getApi({ suc: true, data: userId }));
     } catch (error) {
       next(error);
     }

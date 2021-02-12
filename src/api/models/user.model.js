@@ -1,12 +1,22 @@
 import { executeQuery } from "./pool";
 
 const User = {
-  postUser: async (key, name, role) => {
-    const query = "INSERT INTO user (fId, name, role) VALUES (?,?,?)";
-    const values = [key, name, role];
-    await executeQuery(query, values);
+  findByKey: async (fId, userId) => {
+    const query = "SELECT id FROM user WHERE fId = ? AND id = ?;";
+    const values = [fId, userId];
+    const [key] = await executeQuery(query, values);
+    return key.id;
   },
+  postUser: async (key, name, role) => {
+    let query = "INSERT INTO user (fId, name, role) VALUES (?,?,?)";
+    let values = [key, name, role];
+    await executeQuery(query, values);
 
+    query = "SELECT id FROM user WHERE fId = ? AND name = ? AND role = ?";
+    values = [key, name, role];
+    const [data] = await executeQuery(query, values);
+    return data.id;
+  },
   findById: async (userId, key) => {
     const query = "SELECT * FROM user WHERE (id = ? AND fId=?)";
     const values = [userId, key];

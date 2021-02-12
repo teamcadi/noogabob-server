@@ -1,11 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
 import Family from "../models/family.model";
 
 const GroupService = {
   postGroup: async (name, age, kind, meals) => {
     const key = uuidv4();
-    // const hashKey = await bcrypt.hash(key, await bcrypt.genSalt(10));
     await Family.postKey(key);
     const dogGroupId = await Family.postDog(key, name, age, kind, meals);
     return { key: key, dogId: dogGroupId.dogId, groupId: dogGroupId.groupId };
