@@ -8,11 +8,19 @@ const Family = {
     const [key] = await executeQuery(query, values);
     return key.fId;
   },
+  // key로 검색하기
   findByKey: async (fId) => {
     const query = "SELECT id FROM family where fId = ?";
     const values = [fId];
     const [key] = await executeQuery(query, values);
     return key.id;
+  },
+  // userId로 검색하기
+  findByGroupId: async (userId) => {
+    const query = "SELECT id, fId FROM family WHERE fId = (SELECT fId FROM user WHERE id = ?)";
+    const values = [userId];
+    const [data] = await executeQuery(query, values);
+    return data;
   },
   getGroup: async (groupId) => {
     const query = "SELECT name, age, kind, meal1, meal2, meal3 FROM dog WHERE fId = (SELECT fId FROM family WHERE id = ?);";
