@@ -12,10 +12,8 @@ module.exports = {
     } else {
       try {
         const { groupId, dogId, userId } = req.params; // 인증으로 사용할 변수
-        console.log(groupId, dogId, userId);
         if (groupId !== undefined) {
-          const id = await Family.findByKey(key);
-
+          const id = await Family.findByKey(key);          
           if (id == groupId) next();
           else {
             const error = new Error("인증 실패");
@@ -23,7 +21,8 @@ module.exports = {
             next(error);
           }
         }
-        if (dogId !== undefined) {
+
+        else if (dogId !== undefined) {
           const id = await Dog.findByKey(key);
           if (id == dogId) next();
           else {
@@ -32,7 +31,7 @@ module.exports = {
             next(error);
           }
         }
-        if (userId !== undefined) {
+        else if (userId !== undefined) {
           const id = await User.findByKey(key, userId);
           if (id == userId) next();
           else {
@@ -41,8 +40,7 @@ module.exports = {
             next(error);
           }
         }
-        if (userId === undefined) {
-          console.log("사용자 등록");
+        else if (userId === undefined) {
           const groupKey = await Family.findByGroup(key);
           if (key === groupKey) next();
           else {
