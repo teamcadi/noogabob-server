@@ -8,9 +8,9 @@ const Dog = {
     return key.id;
   },
 
-  updateDog: async (key, dogId, name, age, kind, meal1) => {
-    const query = "UPDATE dog SET name=?, age=?, kind=?, meal1=? WHERE (id = ? AND fId=?)";
-    const values = [name, age, kind, meal1, dogId, key];
+  updateDog: async (key, dogId, name, age, kind, meal1, meal2, meal3) => {
+    const query = "UPDATE dog SET name=?, age=?, kind=?, meal1=?, meal2=?, meal3=? WHERE (id = ? AND fId=?)";
+    const values = [name, age, kind, meal1, meal2, meal3, dogId, key];
     const dog = await executeQuery(query, values);
     return dog;
   },
