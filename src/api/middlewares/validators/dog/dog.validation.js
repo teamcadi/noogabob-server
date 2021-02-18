@@ -1,4 +1,5 @@
 import { dogSchema, bobSchema } from "./dog.schema";
+import binary_search  from "../../../../utils/localData";
 
 module.exports = {
   /**
@@ -6,12 +7,17 @@ module.exports = {
    */
   dogValidation: async (req, res, next) => {
     const value = await dogSchema.validate(req.body);
+    const {kind} = req.body;
     if (value.error) {
       const error = new Error(value.error.details[0].message);
       error.status = 406;
       next(error);
     } else {
-      next();
+      if(binary_search(kind)) next();
+      else {
+        const error = new Error("존재하지 않은 강이지 종류입니다.");
+        next(error);
+      }
     }
   },
   /**

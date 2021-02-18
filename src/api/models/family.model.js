@@ -23,7 +23,7 @@ const Family = {
     return data;
   },
   getGroup: async (groupId) => {
-    const query = "SELECT name, age, kind, meal1, meal2, meal3 FROM dog WHERE fId = (SELECT fId FROM family WHERE id = ?);";
+    const query = "SELECT id, name, age, kind, meal1, meal2, meal3 FROM dog WHERE fId = (SELECT fId FROM family WHERE id = ?);";
     const values = [groupId];
     const [dog] = await executeQuery(query, values);
     return dog;
