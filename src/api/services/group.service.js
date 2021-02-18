@@ -23,6 +23,10 @@ const GroupService = {
 
     return updateData;
   },
+
+  getGroupId: async (userId) => {
+    return await Family.findByGroupId(userId);
+  },
   getMembers: async (groupId) => {
     return await Family.findByMembers(groupId);
   },

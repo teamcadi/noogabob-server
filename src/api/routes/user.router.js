@@ -6,8 +6,7 @@ const router = Router();
 
 function userRouter(app) {
   app.use("/users", router);
-
-  // todo: auth, validator
+  
   router.post("/", authorization, userValidation, UserController.postUser);
   router.get("/:userId", authorization, UserController.getUser);
   router.put("/:userId", authorization, userValidation, UserController.updateUser);
