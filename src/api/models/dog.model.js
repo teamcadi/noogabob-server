@@ -1,6 +1,12 @@
 import { executeQuery } from "./pool";
 
 const Dog = {
+  findByDog: async (fId) => {
+    const query = "SELECT id, name, age, kind, meal1, meal2, meal3 FROM dog WHERE fId = ?";
+    const values = [fId];
+    const [dog] = await executeQuery(query, values);
+    return dog;
+  },
   findByKey: async (fId, userId) => {
     const query = "SELECT DISTINCT dog.id FROM dog, user WHERE dog.fId = ? AND user.fId = ?";
     const values = [fId, fId];
