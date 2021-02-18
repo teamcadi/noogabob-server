@@ -7,6 +7,7 @@ const router = Router();
 function dogRouter(app) {
   app.use("/dogs", router);
 
+  router.get("/", authorization, DogController.getDog);
   router.post("/:dogId/meals", authorization, eatValidation, DogController.feedDog);
   router.post("/:dogId/snacks", authorization, eatValidation, DogController.snackDog);
   router.put("/:dogId", authorization, dogValidation, DogController.updateDog);

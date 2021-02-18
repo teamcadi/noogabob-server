@@ -1,10 +1,22 @@
 import Dog from "../models/dog.model";
 
 const DogService = {
-  updateDog: async (key, name, age, kind, meals) => {
-    return await Dog.updateDog(key, name, age, kind, meals);
-  },
+  getDog: async (key) => {
+    const data = await Dog.findByDog(key);
+    let updateData = {};
+    let meals = [];
+    updateData.id = data.id;
+    updateData.name = data.name;
+    updateData.age = data.age;
+    updateData.kind = data.kind;
 
+    if (data.meal1 !== null) meals.push(data.meal1);
+    if (data.meal2 !== null) meals.push(data.meal2);
+    if (data.meal3 !== null) meals.push(data.meal3);
+    updateData.meals = meals;
+
+    return updateData;
+  },
   feedDog: async (dogId, userId) => {
     return await Dog.feedDog(dogId, userId);
   },

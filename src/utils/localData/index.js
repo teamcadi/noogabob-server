@@ -1,4 +1,4 @@
-export const dogs = [
+const dogs = [
   "말티스",
   "푸들",
   "재패니스 스피츠",
@@ -177,3 +177,22 @@ export const dogs = [
   "던커",
   "빌리",
 ];
+
+const binary_search = (target) => {
+  let left = 0;
+  let right = dogs.length - 1;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (dogs[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+  return dogs[(left + right) / 2] == target;
+};
+
+dogs.sort();
+
+export default binary_search;
