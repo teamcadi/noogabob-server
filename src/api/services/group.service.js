@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
+import short from "short-uuid";
 import Family from "../models/family.model";
 
 const GroupService = {
   postGroup: async (name, age, kind, meals) => {
-    const key = uuidv4();
+    const key = short.generate();
     await Family.postKey(key);
     const dogGroupId = await Family.postDog(key, name, age, kind, meals);
     return { key: key, dogId: dogGroupId.dogId, groupId: dogGroupId.groupId };
@@ -12,6 +12,7 @@ const GroupService = {
     const data = await Family.getGroup(groupId);
     let updateData = {};
     let meals = [];
+    updateData.id = data.id;
     updateData.name = data.name;
     updateData.age = data.age;
     updateData.kind = data.kind;
