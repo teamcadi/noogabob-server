@@ -40,11 +40,7 @@ const DogController = {
       const { dogId } = req.params;
       const { userId } = req.body;
       await DogService.snackDog(dogId, userId);
-      if (dog == "" || dog == null || dog == undefined || (dog != null && typeof dog == "object" && !Object.keys(dog).length)) {
-        res.status(201).json(getApi({ suc: false }));
-      } else {
-        res.status(201).json(getApi({ suc: true }));
-      }
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);
