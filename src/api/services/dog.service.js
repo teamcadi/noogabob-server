@@ -17,16 +17,16 @@ const DogService = {
 
     return updateData;
   },
-  updateDog: async (key, dogId, name, age, kind, meal1) => {
-    return await Dog.updateDog(key, dogId, name, age, kind, meal1);
+  updateDog: async (dogId, name, age, kind, meals) => {
+    await Dog.updateDog(dogId, name, age, kind, meals);
   },
 
   feedDog: async (dogId, userId) => {
-    return await Dog.feedDog(dogId, userId);
+    await Dog.feedDog(dogId, userId);
   },
 
   snackDog: async (dogId, userId) => {
-    return await Dog.snackDog(dogId, userId);
+    await Dog.snackDog(dogId, userId);
   },
 };
 
