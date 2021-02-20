@@ -12,13 +12,13 @@ const User = {
     let values = [key, name, role];
     await executeQuery(query, values);
 
-    query = "SELECT id FROM user WHERE fId = ? AND name = ? AND role = ?";
+    query = "SELECT id FROM user WHERE fId = (SELECT fId FROM family WHERE fId = ?) AND name = ? AND role = ?";
     values = [key, name, role];
     const [data] = await executeQuery(query, values);
     return data.id;
   },
   findById: async (userId, key) => {
-    const query = "SELECT * FROM user WHERE (id = ? AND fId=?)";
+    const query = "SELECT * FROM user WHERE (id = ? AND fId = (SELECT fId FROM family WHERE fId = ?))";
     const values = [userId, key];
     // 구조 분해
     const user = await executeQuery(query, values);
@@ -26,14 +26,14 @@ const User = {
   },
 
   updateUser: async (userId, name, role, key) => {
-    const query = "UPDATE user SET name = ?, role = ? WHERE (id = ? AND fId=?)";
+    const query = "UPDATE user SET name = ?, role = ? WHERE (id = ? AND fId = (SELECT fId FROM family WHERE fId = ?))";
     const values = [name, role, userId, key];
     const user = await executeQuery(query, values);
     return user;
   },
 
   deleteUser: async (userId, key) => {
-    const query = "DELETE FROM user WHERE (id=? AND fId=?) ";
+    const query = "DELETE FROM user WHERE (id = ? AND fId = (SELECT fId FROM family WHERE fId = ?)) ";
     const values = [userId, key];
     await executeQuery(query, values);
   },
