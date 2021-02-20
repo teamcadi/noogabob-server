@@ -17,6 +17,10 @@ const DogService = {
 
     return updateData;
   },
+  updateDog: async (key, dogId, name, age, kind, meal1) => {
+    return await Dog.updateDog(key, dogId, name, age, kind, meal1);
+  },
+
   feedDog: async (dogId, userId) => {
     return await Dog.feedDog(dogId, userId);
   },

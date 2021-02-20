@@ -38,11 +38,7 @@ const UserController = {
       const { userId } = req.params;
       const { name, role } = req.body;
       const user = await UserService.updateUser(userId, name, role, key);
-      if (user == "" || user == null || user == undefined || (user != null && typeof user == "object" && !Object.keys(user).length)) {
-        res.status(201).json(getApi({ suc: false }));
-      } else {
-        res.status(201).json(getApi({ suc: true }));
-      }
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
     }
@@ -52,11 +48,7 @@ const UserController = {
       const { key } = req.headers;
       const { userId } = req.params;
       await UserService.deleteUser(userId, key);
-      if (user == "" || user == null || user == undefined || (user != null && typeof user == "object" && !Object.keys(user).length)) {
-        res.status(201).json(getApi({ suc: false }));
-      } else {
-        res.status(201).json(getApi({ suc: true }));
-      }
+      res.status(200).json(getApi({ suc: true }));
     } catch (error) {
       next(error);
     }

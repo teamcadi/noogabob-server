@@ -15,13 +15,9 @@ const DogController = {
     try {
       const { key } = req.headers;
       const { dogId } = req.params;
-      const { name, age, kind, meal1, meal2, meal3 } = req.body;
-      const dog = await DogService.updateDog(name, age, kind, meal1, meal2, meal3);
-      if (dog == "" || dog == null || dog == undefined || (dog != null && typeof dog == "object" && !Object.keys(dog).length)) {
-        res.status(201).json(getApi({ suc: false }));
-      } else {
-        res.status(201).json(getApi({ suc: true }));
-      }
+      const { name, age, kind, meals } = req.body;
+      const dog = await DogService.updateDog(key, dogId, name, age, kind, meals);
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);
@@ -33,11 +29,7 @@ const DogController = {
       const { dogId } = req.params;
       const { userId } = req.body;
       await DogService.feedDog(dogId, userId);
-      if (dog == "" || dog == null || dog == undefined || (dog != null && typeof dog == "object" && !Object.keys(dog).length)) {
-        res.status(201).json(getApi({ suc: false }));
-      } else {
-        res.status(201).json(getApi({ suc: true }));
-      }
+      res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
       next(error);

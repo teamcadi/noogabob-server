@@ -7,7 +7,6 @@ const Dog = {
     const [dog] = await executeQuery(query, values);
     return dog;
   },
-
   findByKey: async (fId, userId) => {
     const query = "SELECT DISTINCT dog.id FROM dog, user WHERE dog.fId = ? AND user.fId = ?";
     const values = [fId, fId];
@@ -15,19 +14,9 @@ const Dog = {
     return key.id;
   },
 
-  updateDog: async (fId, name, age, kind, meals) => {
-    let query, values;
-
-    if (meals.length === 1) {
-      query = "INSERT INTO dog (fId, name, age, kind, meal1) VALUES (?, ?, ?, ?, ?)";
-      values = [fId, name, age, kind, meals[0]];
-    } else if (meals.length === 2) {
-      query = "INSERT INTO dog (fId, name, age, kind, meal1, meal2) VALUES (?, ?, ?, ?, ?, ?)";
-      values = [fId, name, age, kind, meals[0], meals[1]];
-    } else {
-      query = "INSERT INTO dog (fId, name, age, kind, meal1, meal2, meal3) VALUES (?, ?, ?, ?, ?, ?, ?)";
-      values = [fId, name, age, kind, meals[0], meals[1], meals[2]];
-    }
+  updateDog: async (key, dogId, name, age, kind, meal1) => {
+    const query = "UPDATE dog SET name=?, age=?, kind=?, meal1=? WHERE (id = ? AND fId=?)";
+    const values = [name, age, kind, meal1, dogId, key];
     const dog = await executeQuery(query, values);
     return dog;
   },
