@@ -1,4 +1,4 @@
-const joi = require("@hapi/joi");
+import joi from "@hapi/joi";
 const schema = {
   /**
    * @description 반려견 정보 수정 유효성 검사
@@ -18,4 +18,4 @@ const schema = {
   }),
 };
 
-module.exports = schema;
+export default schema;

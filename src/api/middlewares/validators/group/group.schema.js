@@ -1,4 +1,4 @@
-const joi = require("@hapi/joi");
+import joi from "@hapi/joi";
 const schema = {
   /**
    * @description 그룹 생성
@@ -19,4 +19,4 @@ const schema = {
   }),
 };
 
-module.exports = schema;
+export default schema;
