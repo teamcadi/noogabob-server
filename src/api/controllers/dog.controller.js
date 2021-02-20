@@ -13,10 +13,9 @@ const DogController = {
   },
   updateDog: async (req, res, next) => {
     try {
-      const { key } = req.headers;
       const { dogId } = req.params;
-      const { name, age, kind, meal1 } = req.body;
-      const dog = await DogService.updateDog(key, dogId, name, age, kind, meal1);
+      const { name, age, kind, meals } = req.body;
+      await DogService.updateDog(dogId, name, age, kind, meals);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling

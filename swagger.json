@@ -423,7 +423,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DogModel"
+              "$ref": "#/definitions/DogModelInput"
             }
           }
         ],
@@ -711,6 +711,26 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/TimeLineModel"
+          }
+        }
+      }
+    },
+    "DogModelInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "meals": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }

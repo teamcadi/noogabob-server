@@ -14,11 +14,20 @@ const Dog = {
     return key.id;
   },
 
-  updateDog: async (key, dogId, name, age, kind, meal1) => {
-    const query = "UPDATE dog SET name=?, age=?, kind=?, meal1=? WHERE (id = ? AND fId=?)";
-    const values = [name, age, kind, meal1, dogId, key];
-    const dog = await executeQuery(query, values);
-    return dog;
+  updateDog: async (dogId, name, age, kind, meals) => {
+    let query;
+    let values;
+    if (meals.length === 1) {
+      query = "UPDATE dog SET name=?, age=?, kind=?, meal1=?, meal2=null, meal3=null WHERE id = ?";
+      values = [name, age, kind, meals[0], dogId];
+    } else if (meals.length === 2) {
+      query = "UPDATE dog SET name=?, age=?, kind=?, meal1=?, meal2=?, meal3=null WHERE id = ?";
+      values = [name, age, kind, meals[0], meals[1], dogId];
+    } else {
+      query = "UPDATE dog SET name=?, age=?, kind=?, meal1=?, meal2=?, meal3=? WHERE id = ?";
+      values = [name, age, kind, meals[0], meals[1], meals[2], dogId];
+    }
+    await executeQuery(query, values);
   },
 
   feedDog: async (dogId, userId) => {
