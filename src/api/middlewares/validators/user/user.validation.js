@@ -1,11 +1,11 @@
-import { userSchema } from "./user.schema";
+import schema from "./user.schema";
 
-module.exports = {
+const validates = {
   /**
    * @description 내 정보 수정 유효성 검사
    */
   userValidation: async (req, res, next) => {
-    const value = await userSchema.validate(req.body);
+    const value = await schema.userSchema.validate(req.body);
     if (value.error) {
       const error = new Error(value.error.details[0].message);
       error.status = 406;
@@ -15,3 +15,5 @@ module.exports = {
     }
   },
 };
+
+export default validates;
