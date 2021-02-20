@@ -15,8 +15,8 @@ const DogController = {
     try {
       const { key } = req.headers;
       const { dogId } = req.params;
-      const { name, age, kind, meals } = req.body;
-      const dog = await DogService.updateDog(key, dogId, name, age, kind, meals);
+      const { name, age, kind, meal1 } = req.body;
+      const dog = await DogService.updateDog(key, dogId, name, age, kind, meal1);
       res.status(201).json(getApi({ suc: true }));
     } catch (error) {
       // error handling
