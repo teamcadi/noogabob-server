@@ -11,7 +11,7 @@ export default {
       next(error);
     } else {
       try {
-        const { groupId, dogId, userId } = req.params; // 인증으로 사용할 변수
+        const { groupId, dogId, userId } = req.params;
         if (groupId !== undefined) {
           const id = await Family.findByKey(key);
           if (id == groupId) next();

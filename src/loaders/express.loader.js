@@ -28,9 +28,9 @@ function expressLoader(app) {
   // error handling
   // todo: 데이터베이스 에러 핸들링
   app.use((err, req, res, next) => {
-    logger.error(err);
-    if (err.errno == 1062) rs.status(409).json(getApi({ suc: false, mes: err.message }));
-    else res.status(err.status || 500).json(getApi({ suc: false, mes: err.message }));
+    logger.error(err.message);
+    if (err.errno == 1062) rs.status(200).json(getApi({ suc: false, mes: err.message }));
+    else res.status(200).json(getApi({ suc: false, mes: err.message }));
   });
 }
 
