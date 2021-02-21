@@ -6,11 +6,10 @@ const router = Router();
 
 function userRouter(app) {
   app.use("/users", router);
-  router.use(auth.authorization);
-  router.post("/", validates.userValidation, UserController.postUser);
-  router.get("/:userId", UserController.getUser);
-  router.put("/:userId", validates.userValidation, UserController.updateUser);
-  router.delete("/:userId", UserController.deleteUser);
+  router.post("/", auth.authorization, validates.userValidation, UserController.postUser);
+  router.get("/:userId", auth.authorization, UserController.getUser);
+  router.put("/:userId", auth.authorization, validates.userValidation, UserController.updateUser);
+  router.delete("/:userId", auth.authorization, UserController.deleteUser);
 }
 
 export default userRouter;
