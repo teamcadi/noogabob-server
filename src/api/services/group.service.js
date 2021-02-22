@@ -32,20 +32,20 @@ const GroupService = {
     return await Family.findByMembers(groupId);
   },
 
-  getStatics: async (groupId, date, type) => {
+  getStatics: async (groupId, date, type, key) => {
     // 현재 날짜를 기준으로해서 데이터를 주는것 말고도
     // 이전 데이터도 볼수 있도록
     // date 이용
     const updateDate = new Date(date);
     if (type === "week") {
       const dogId = await Family.findByDogId(groupId);
-      const mealRank = await Family.findByWeekMealRank(dogId.id, updateDate);
-      const snackRank = await Family.findByWeekSnackRank(dogId.id, updateDate);
+      const mealRank = await Family.findByWeekMealRank(dogId.id, updateDate, key);
+      const snackRank = await Family.findByWeekSnackRank(dogId.id, updateDate, key);
       return { mealRank, snackRank };
     } else if (type === "month") {
       const dogId = await Family.findByDogId(groupId);
-      const mealRank = await Family.findByMonthMealRank(dogId.id, updateDate);
-      const snackRank = await Family.findByMonthSnackRank(dogId.id, updateDate);
+      const mealRank = await Family.findByMonthMealRank(dogId.id, updateDate, key);
+      const snackRank = await Family.findByMonthSnackRank(dogId.id, updateDate, key);
       return { mealRank, snackRank };
     }
   },
