@@ -39,13 +39,17 @@ const GroupService = {
     const updateDate = new Date(date);
     if (type === "week") {
       const dogId = await Family.findByDogId(groupId);
-      const mealRank = await Family.findByWeekMealRank(dogId.id, updateDate, key);
-      const snackRank = await Family.findByWeekSnackRank(dogId.id, updateDate, key);
+      const [mealRank, snackRank] = await Promise.all([
+        Family.findByWeekMealRank(dogId.id, updateDate, key),
+        Family.findByWeekSnackRank(dogId.id, updateDate, key),
+      ]);
       return { mealRank, snackRank };
     } else if (type === "month") {
       const dogId = await Family.findByDogId(groupId);
-      const mealRank = await Family.findByMonthMealRank(dogId.id, updateDate, key);
-      const snackRank = await Family.findByMonthSnackRank(dogId.id, updateDate, key);
+      const [mealRank, snackRank] = await Promise.all([
+        Family.findByMonthMealRank(dogId.id, updateDate, key),
+        Family.findByMonthSnackRank(dogId.id, updateDate, key),
+      ]);
       return { mealRank, snackRank };
     }
   },
