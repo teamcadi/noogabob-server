@@ -398,7 +398,7 @@
         }
       }
     },
-    "/dogs/{dogId}/meal/lastest": {
+    "/dogs/{dogId}/meal/latest": {
       "get": {
         "summary": "최근 밥, 혹은 식사를 준 정보를 알 수 있습니다.",
         "description": "최근 밥, 혹은 식사를 준 정보를 알 수 있습니다.",
