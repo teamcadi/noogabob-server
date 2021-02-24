@@ -82,7 +82,7 @@ const GroupService = {
 
     for (let i = 0; i < datas.length; i++) {
       let subContent = datas[i].role.concat(" ", datas[i].name);
-      let time = Date.parse(datas[i].createdAt) / 1000;
+      let time = Date.parse(datas[i].createdAt);
       let data = {};
       data.time = time;
       data.type = datas[i].type;
