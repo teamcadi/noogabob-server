@@ -8,6 +8,7 @@ function dogRouter(app) {
   app.use("/dogs", router);
 
   router.get("/", auth.authorization, DogController.getDog);
+  router.get("/:dogId/meal/lastest", DogController.getLastestMeal);
   router.post("/:dogId/meals", auth.authorization, validation.eatValidation, DogController.feedDog);
   router.post("/:dogId/snacks", auth.authorization, validation.eatValidation, DogController.snackDog);
   router.put("/:dogId", auth.authorization, validation.dogValidation, DogController.updateDog);

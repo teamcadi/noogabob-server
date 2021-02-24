@@ -1,4 +1,5 @@
 import Dog from "../models/dog.model";
+import timeForToday from "../../utils/timeForToday";
 
 const DogService = {
   getDog: async (key) => {
@@ -27,6 +28,11 @@ const DogService = {
 
   snackDog: async (dogId, userId) => {
     await Dog.snackDog(dogId, userId);
+  },
+  getLastestMeal: async (dogId) => {
+    const lastestMeal = await Dog.getLastestMeal(dogId);
+    console.log(lastestMeal);
+    return timeForToday(lastestMeal.createdAt);
   },
 };
 

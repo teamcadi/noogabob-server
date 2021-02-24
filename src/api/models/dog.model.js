@@ -41,6 +41,15 @@ const Dog = {
     const values = [userId, dogId];
     await executeQuery(query, values);
   },
+  getLastestMeal: async (dogId) => {
+    const query = `(SELECT CONVERT_tz(createdAt, '+00:00', '+09:00') as createdAt FROM meal where dogId = ?) 
+                    UNION ALL 
+                    (SELECT CONVERT_tz(createdAt, '+00:00', '+09:00') as createdAt FROM snack where dogId = ?) 
+                      ORDER BY createdAt DESC LIMIT 1`;
+    const values = [dogId, dogId];
+    const [result] = await executeQuery(query, values);
+    return result;
+  },
 };
 
 export default Dog;
