@@ -398,6 +398,37 @@
         }
       }
     },
+    "/dogs/{dogId}/meal/lastest": {
+      "get": {
+        "summary": "최근 밥, 혹은 식사를 준 정보를 알 수 있습니다.",
+        "description": "최근 밥, 혹은 식사를 준 정보를 알 수 있습니다.",
+        "tags": ["dogs"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "key",
+            "required": true,
+            "description": "그룹 키를 입력하세요",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "dogId",
+            "required": true,
+            "description": "강아지 번호를 입력하세요",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/keyAnswerModel"
+            },
+            "description": "Successful"
+          }
+        }
+      }
+    },
     "/dogs/{dogId}": {
       "put": {
         "summary": "강아지 정보를 수정합니다.",

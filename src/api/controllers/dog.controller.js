@@ -46,6 +46,15 @@ const DogController = {
       next(error);
     }
   },
+  getLastestMeal: async (req, res, next) => {
+    try {
+      const { dogId } = req.params;
+      const result = await DogService.getLastestMeal(dogId);
+      res.status(200).json(getApi({ suc: true, data: result }));
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export default DogController;
