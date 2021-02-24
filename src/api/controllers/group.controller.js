@@ -40,9 +40,10 @@ const GroupController = {
 
   getStatics: async (req, res, next) => {
     try {
+      const { key } = req.headers;
       const { groupId } = req.params;
       const { type, date } = req.query;
-      const data = await GroupService.getStatics(groupId, date, type);
+      const data = await GroupService.getStatics(groupId, date, type, key);
       res.status(200).json(getApi({ suc: true, data: data }));
     } catch (e) {
       next(e);
