@@ -1,8 +1,6 @@
 function timeForToday(value) {
   let today = new Date();
-  console.log(today);
   let timeValue = new Date(value);
-  console.log(timeValue);
 
   const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
   if (betweenTime < 1) return "방금 전";
