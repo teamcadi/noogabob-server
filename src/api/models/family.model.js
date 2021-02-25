@@ -135,16 +135,14 @@ const Family = {
   },
 
   getMealTimeline: async (id) => {
-    const query = `SELECT user.name, user.role, CONVERT_tz(meal.createdAt, '+00:00', '+09:00') as createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt DESC;`;
-    // const query = `SELECT user.name, user.role, meal.createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt DESC;`;
+    const query = `SELECT user.name, user.role, meal.createdAt FROM meal, user WHERE dogId = ? AND user.id = meal.userId ORDER BY meal.createdAt DESC;`;
     const values = [id];
     const data = await executeQuery(query, values);
     return data;
   },
 
   getSnackTimeline: async (id) => {
-    const query = `SELECT user.name, user.role, CONVERT_tz(snack.createdAt, '+00:00', '+09:00') as createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt DESC;`;
-    // const query = `SELECT user.name, user.role, snack.createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt DESC;`;
+    const query = `SELECT user.name, user.role, snack.createdAt FROM snack, user WHERE dogId = ? AND user.id = snack.userId  ORDER BY snack.createdAt DESC;`;
     const values = [id];
     const data = await executeQuery(query, values);
     return data;
