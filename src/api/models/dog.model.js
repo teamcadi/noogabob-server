@@ -42,9 +42,9 @@ const Dog = {
     await executeQuery(query, values);
   },
   getLastestMeal: async (dogId) => {
-    const query = `(SELECT CONVERT_tz(createdAt, '+00:00', '+09:00') as createdAt FROM meal where dogId = ?) 
+    const query = `(SELECT createdAt FROM meal where dogId = ?) 
                     UNION ALL 
-                    (SELECT CONVERT_tz(createdAt, '+00:00', '+09:00') as createdAt FROM snack where dogId = ?) 
+                    (SELECT createdAt FROM snack where dogId = ?) 
                       ORDER BY createdAt DESC LIMIT 1`;
     const values = [dogId, dogId];
     const [result] = await executeQuery(query, values);
