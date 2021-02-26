@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "real_estate_backend",
+      name: "noogabob_API",
       script: "./dist/index.js",
       instances: 0,
       exec_mode: "cluster",
