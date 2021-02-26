@@ -1,4 +1,4 @@
-# noogabab-server
+# noogabob-server
 
 ### 디렉토리 구조
 
